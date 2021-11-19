@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CodeEditor</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="{{ url_for('static', filename='codemirror/lib/codemirror.js') }}"></script>
+        <link href="{{ url_for('static', filename='codemirror/lib/codemirror.css') }}" rel="stylesheet">
+        <script src="{{ url_for('static', filename='codemirror/mode/python/python.js') }}"></script>
+        <!-- <script src="mode/javascript/javascript.js"></script> -->
+        <script src="{{ url_for('static', filename='codemirror/addon/edit/closebrackets.js') }}"></script>
+        <!-- <link href="codemirror/theme/monokai.css" rel="stylesheet"> -->
+        <link href="{{ url_for('static', filename='codemirror/theme/dracula.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    </head>
+
+<body>
+    
+    <header>
+        <nav>
+            <div class="nav-bg"></div>
+            <ul>
+              <li><a href="{{ url_for('python') }}">Python</a></li>
+              <li><a href="{{ url_for('xml') }}">Html</a></li>
+              <li><a href="{{ url_for('javascript') }}">Javascript</a></li>
+            </ul>
+          </nav>
+          <div class="hero">
+          </div>
+    </header>
+    <div class="editor">
+        <form action="{{ url_for('submit') }}" method="post">
+            <textarea id="editor" name="code"></textarea>
+                    <!-- <a class="btn btn-primary" href="{{ url_for('submit') }}" role="button">Run</a> -->
+                    <input type="submit" value="Run">
+        </form>
+        <div class="interpreter" >
+            {{ results }}
+        </div>
+    </div>
+        
+
+        <script>
+            var editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+                mode: "python",
+				theme: "dracula",
+				lineNumbers: true,
+				// lineWrapping: true,
+				indentUnit: 4,
+				indentWithTabs: true,
+                autoCloseBrackets: true,
+				// viewportMargin: Infinity,
+				// autofocus: true
+            });
+            editor.setSize("1000", "600")
+        </script>
+        <script src="https://unpkg.com/vue@next"></script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+      </body>
+</html>
